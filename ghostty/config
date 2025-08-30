@@ -1,0 +1,41 @@
+# ghostty terminal configuration
+
+# theme
+theme = catppuccin-macchiato
+
+# font settings
+font-family = JetBrainsMono Nerd Font
+font-size = 14
+bold-is-bright = true
+adjust-cell-height = 20%
+
+# background settings
+background-opacity = 0.85
+background-blur = true
+
+# window settings
+window-height = 59
+window-width = 188
+window-padding-x = 10
+window-padding-y = 10
+window-padding-balance = true
+window-decoration = true
+
+# mouse settings
+cursor-style = "bar"
+mouse-hide-while-typing = true
+mouse-scroll-multiplier = 2
+
+# macOS specific settings
+macos-option-as-alt = true
+macos-titlebar-style = "tabs"
+keybind = shift+enter=text:\n
+
+# shell settings
+#command = /usr/local/bin/fish --login --interactive
+
+# claude code multipane settings
+keybind = ctrl+h=goto_split:left
+keybind = ctrl+j=goto_split:bottom
+keybind = ctrl+k=goto_split:top
+keybind = ctrl+l=goto_split:right

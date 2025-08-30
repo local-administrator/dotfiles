@@ -1,0 +1,37 @@
+# macOS
+.DS_Store
+
+# Fish shell generated files
+fish/fish_variables
+fish/fish_history
+fish/fish_read_history
+
+# Fisher managed files (but keep custom)
+fish/functions/*
+fish/completions/*
+fish/conf.d/*
+!fish/functions/custom/
+!fish/functions/fisher.fish
+!fish/conf.d/custom/
+
+# Backup files
+*.backup
+*.bak
+*~
+.dotfiles_backup/
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local config files (device-specific)
+.gitconfig.local
+
+# Zed generated files
+zed/prompts/
+zed/conversations/
+zed/themes/
+zed/settings_backup.json
+

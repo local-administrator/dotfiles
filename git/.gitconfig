@@ -1,0 +1,71 @@
+[include]
+	path = /Users/localadmin/.config/dev/gitconfig
+	# Device-specific config (not tracked in git)
+	path = ~/.gitconfig.local
+
+# ===== User Identity =====
+[user]
+	name = local-administrator
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIVnLUUjX+d8QJdl8u/Hf6UhXJlUapCZ1qFzqtCISzLf
+	# Email is set in ~/.gitconfig.local (device-specific, not tracked)
+
+# ===== Signing Configuration =====
+[gpg]
+  format = ssh                                                # Use SSH format for GPG signatures
+[gpg "ssh"]
+  program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign  # Use 1Password for SSH signing
+	allowedSignersFile = /Users/localadmin/.config/git/allowed_signers
+[commit]
+  gpgsign = true                                              # Sign all commits with GPG
+  verbose = true                                              # Show diff when writing commit message
+
+# ===== Repository Defaults =====
+[init]
+  defaultBranch = main                                        # Use 'main' as the default branch name
+[core]
+  excludesfile = ~/.gitignore                                 # Global gitignore file location
+  fsmonitor = true                                            # Use filesystem monitor for faster status
+  untrackedCache = true                                       # Cache untracked files for performance
+
+# ===== Display & UI =====
+[column]
+  ui = auto                                                   # Auto-format columnar output in the terminal
+[branch]
+  sort = -committerdate                                       # Sort branches by most recent commit first
+[tag]
+  sort = version:refname                                      # Sort tags by version number
+[help]
+  autocorrect = prompt                                        # Prompt to autocorrect mistyped commands
+[diff]
+  algorithm = histogram                                       # Use histogram diff algorithm for better diffs
+  colorMoved = plain                                          # Highlight moved lines in diffs
+  mnemonicPrefix = true                                       # Use mnemonic prefixes (i/w/c) in diff output
+  renames = true                                              # Detect renamed files in diffs
+
+# ===== Remote Operations =====
+[push]
+  default = simple                                            # Push only the current branch to its upstream
+  autoSetupRemote = true                                      # Auto-setup remote tracking when pushing
+  followTags = true                                           # Push tags when pushing branches
+[fetch]
+  prune = true                                                # Remove remote-tracking refs that no longer exist
+  pruneTags = true                                            # Remove tags that no longer exist on remote
+  all = true                                                  # Fetch from all remotes
+[pull]
+  rebase = true                                              	# Rebase local changes when pulling
+
+# ===== History Management =====
+[rerere]
+  enabled = true                                              # Remember resolved conflicts
+  autoupdate = true                                           # Auto-stage files resolved with rerere
+[rebase]
+  autoSquash = true                                           # Auto-squash fixup! and squash! commits
+  autoStash = true                                            # Auto-stash changes before rebasing
+  updateRefs = true                                           # Update dependent refs during rebase
+[credential]
+	helper = cache
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
