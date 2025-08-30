@@ -1,0 +1,9 @@
+# Bat configuration
+
+--theme="gruvbox-dark"
+
+# Show line numbers
+--style="numbers,changes,header"
+
+# Use italic text on the terminal (not supported on all terminals)
+--italic-text=always
