@@ -7,6 +7,7 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "show_edit_predictions": true,
   "edit_predictions": {
     "mode": "subtle",
     "copilot": {
@@ -91,6 +92,7 @@
   },
   "languages": {
     "Ruby": {
+      "show_edit_predictions": false,
       "language_servers": ["ruby-lsp", "rubocop"]
     }
   },

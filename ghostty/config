@@ -1,7 +1,7 @@
 # ghostty terminal configuration
 
 # theme
-theme = catppuccin-macchiato
+theme = Catppuccin Macchiato
 
 # font settings
 font-family = JetBrainsMono Nerd Font
