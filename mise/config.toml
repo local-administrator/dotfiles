@@ -1,8 +1,8 @@
 [tools]
 node = "latest"
 "npm:prettier" = "latest"
-python = "3.12"
-ruby = "3.4.8"
+python = "latest"
+ruby = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["ruby"]
