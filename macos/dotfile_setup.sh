@@ -12,8 +12,8 @@ DOTFILES_DIR="$HOME/.dotfiles"
 
 # define all symlinks as source:target pairs
 symlinks=(
-  "fish:$HOME/.config/fish"
-  "ghostty:$HOME/.config/ghostty"
+  "macos/fish:$HOME/.config/fish"
+  "macos/ghostty:$HOME/.config/ghostty"
   "nvim:$HOME/.config/nvim"
   "zed:$HOME/.config/zed"
   "bat:$HOME/.config/bat"

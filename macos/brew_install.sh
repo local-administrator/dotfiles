@@ -11,7 +11,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 DOTFILES_DIR="$HOME/.dotfiles"
-BREWFILE="$DOTFILES_DIR/.dotfiles_meta/Brewfile"
+BREWFILE="$DOTFILES_DIR/macos/Brewfile"
 TEMP_BREWFILE="/tmp/selected_brewfile"
 
 # Check if Homebrew is installed
