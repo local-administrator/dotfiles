@@ -81,6 +81,22 @@ step "Creating symlinks..."
 bash "$META_DIR/dotfile_setup.sh"
 
 ###############################################################################
+# 5a. Mise trust + install
+###############################################################################
+step "Trusting and installing mise tools..."
+if command -v mise &> /dev/null; then
+  mise trust "$HOME/.config/mise/config.toml"
+  ok "mise config trusted"
+  if mise install; then
+    ok "mise tools installed"
+  else
+    warn "mise install had errors — run 'mise install' manually to retry"
+  fi
+else
+  warn "mise not found, skipping"
+fi
+
+###############################################################################
 # 6. macOS defaults
 ###############################################################################
 step "macOS defaults..."
@@ -108,8 +124,11 @@ else
   fi
 
   if [ "$SHELL" != "$FISH_PATH" ]; then
-    chsh -s "$FISH_PATH"
-    ok "Default shell set to fish"
+    if chsh -s "$FISH_PATH"; then
+      ok "Default shell set to fish"
+    else
+      warn "chsh failed — run manually after bootstrap: chsh -s $FISH_PATH"
+    fi
   else
     ok "Fish is already the default shell"
   fi
