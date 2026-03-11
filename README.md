@@ -6,21 +6,8 @@
 # clone repository
 git clone https://github.com/local-administrator/dotfiles.git ~/.dotfiles
 
-# run setup script to create symlinks
-cd ~/.dotfiles/.dotfiles_meta
-./dotfile_setup.sh
-
-# install core tools + select applications interactively
-# (core tools like fish, fzf, etc. are always installed)
-./brew_install.sh
-
-# configure macOS settings
-./macos_setup.sh
-
-# add fish to available shells
-# set fish as default shell
-echo /opt/homebrew/bin/fish | sudo tee -a /etc/shells
-chsh -s /opt/homebrew/bin/fish
+# run bootstrap (installs brew if needed, packages, symlinks, macOS defaults, fish + plugins)
+bash ~/.dotfiles/.dotfiles_meta/bootstrap.sh
 
 # start fish shell
 exec fish

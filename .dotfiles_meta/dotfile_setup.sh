@@ -19,6 +19,8 @@ symlinks=(
   "bat:$HOME/.config/bat"
   "starship/starship.toml:$HOME/.config/starship.toml"
   "git/.gitconfig:$HOME/.gitconfig"
+  "git/.gitignore:$HOME/.gitignore"
+  "mise:$HOME/.config/mise"
 )
 
 # git local config setup
