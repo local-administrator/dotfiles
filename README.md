@@ -2,18 +2,19 @@
 
 ## 🚀 Quick Start
 
+### macOS
 ```bash
-# clone repository
 git clone https://github.com/local-administrator/dotfiles.git ~/.dotfiles
-
-# run bootstrap (installs brew if needed, packages, symlinks, macOS defaults, fish + plugins)
-bash ~/.dotfiles/.dotfiles_meta/bootstrap.sh
-
-# start fish shell
+bash ~/.dotfiles/macos/bootstrap.sh
 exec fish
-
-# update all tools
 update
+```
+
+### Windows
+```powershell
+git clone https://github.com/local-administrator/dotfiles.git ~/.dotfiles
+pwsh -ExecutionPolicy Bypass -File ~/.dotfiles/windows/bootstrap.ps1
+nu
 ```
 
 ## 📦 Components
@@ -105,9 +106,9 @@ Updates:
 
 ### Manual Updates
 - Pull latest dotfiles: `git pull`
-- Re-run setup: `./.dotfiles_meta/dotfile_setup.sh`
-- Install new applications: `./.dotfiles_meta/brew_install.sh`
-- Update macOS settings: `./.dotfiles_meta/macos_setup.sh`
+- Re-run setup: `./macos/dotfile_setup.sh`
+- Install new applications: `./macos/brew_install.sh`
+- Update macOS settings: `./macos/macos_setup.sh`
 
 ## 🤝 Contributing
 

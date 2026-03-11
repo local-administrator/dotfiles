@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Bootstrap script for dotfiles on a fresh macOS machine.
-# Usage: bash ~/.dotfiles/.dotfiles_meta/bootstrap.sh
+# Usage: bash ~/.dotfiles/macos/bootstrap.sh
 
 set -e
 
@@ -12,7 +12,7 @@ BLUE='\033[0;34m'
 NC='\033[0m'
 
 DOTFILES_DIR="$HOME/.dotfiles"
-META_DIR="$DOTFILES_DIR/.dotfiles_meta"
+META_DIR="$DOTFILES_DIR/macos"
 
 step() { echo -e "\n${BLUE}==>${NC} $1"; }
 ok()   { echo -e "${GREEN}✓${NC} $1"; }

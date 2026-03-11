@@ -1,0 +1,30 @@
+# This file contains fish universal variable definitions.
+# VERSION: 3.0
+SETUVAR --export ANTHROPIC_API_KEY:sk\x2dant\x2dapi03\x2dhQCoomEbHlUbhRbKbMPCAQwKxb7aDdE0YsOpWB8S2kgeNHpmoSvUYZ70frLhMHs6yMYnrrhQBEte792tWiCzNg\x2dzkqOYQAA
+SETUVAR --export EDITOR:nvim
+SETUVAR --export MANPAGER:sh\x20\x2dc\x20\x27sed\x20\x2du\x20\x2de\x20\x22s/\x5cx1B\x5c\x5b\x5b0\x2d9\x3b\x5d\x2am//g\x3b\x20s/\x2e\x5cx08//g\x22\x20\x7c\x20bat\x20\x2dp\x20\x2dlman\x27
+SETUVAR --export PAGER:less
+SETUVAR --export VISUAL:nvim
+SETUVAR ZO_CMD:zo
+SETUVAR Z_CMD:z
+SETUVAR Z_DATA:/Users/admin/\x2elocal/share/z/data
+SETUVAR Z_DATA_DIR:/Users/admin/\x2elocal/share/z
+SETUVAR Z_EXCLUDE:\x5e/Users/admin\x24
+SETUVAR __fish_initialized:4300
+SETUVAR __fullhistory_log_dir:/Users/admin/\x2elocal/share/fish/fullhistory
+SETUVAR _fisher_jethrokuan_2F_z_files:\x7e/\x2econfig/fish/functions/__z\x2efish\x1e\x7e/\x2econfig/fish/functions/__z_add\x2efish\x1e\x7e/\x2econfig/fish/functions/__z_clean\x2efish\x1e\x7e/\x2econfig/fish/functions/__z_complete\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/z\x2efish
+SETUVAR _fisher_jorgebucaran_2F_autopair_2E_fish_files:\x7e/\x2econfig/fish/functions/_autopair_backspace\x2efish\x1e\x7e/\x2econfig/fish/functions/_autopair_insert_left\x2efish\x1e\x7e/\x2econfig/fish/functions/_autopair_insert_right\x2efish\x1e\x7e/\x2econfig/fish/functions/_autopair_insert_same\x2efish\x1e\x7e/\x2econfig/fish/functions/_autopair_tab\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/autopair\x2efish
+SETUVAR _fisher_meaningful_2D_ooo_2F_sponge_files:\x7e/\x2econfig/fish/functions/_sponge_clear_state\x2efish\x1e\x7e/\x2econfig/fish/functions/_sponge_on_exit\x2efish\x1e\x7e/\x2econfig/fish/functions/_sponge_on_postexec\x2efish\x1e\x7e/\x2econfig/fish/functions/_sponge_on_preexec\x2efish\x1e\x7e/\x2econfig/fish/functions/_sponge_on_prompt\x2efish\x1e\x7e/\x2econfig/fish/functions/_sponge_remove_from_history\x2efish\x1e\x7e/\x2econfig/fish/functions/sponge_filter_failed\x2efish\x1e\x7e/\x2econfig/fish/functions/sponge_filter_matched\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/sponge\x2efish
+SETUVAR _fisher_nickeb96_2F_puffer_2D_fish_files:\x7e/\x2econfig/fish/functions/_puffer_fish_expand_bang\x2efish\x1e\x7e/\x2econfig/fish/functions/_puffer_fish_expand_buck\x2efish\x1e\x7e/\x2econfig/fish/functions/_puffer_fish_expand_dot\x2efish\x1e\x7e/\x2econfig/fish/functions/_puffer_fish_expand_star\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/puffer_fish_key_bindings\x2efish
+SETUVAR _fisher_oh_2D_my_2D_fish_2F_plugin_2D_brew_files:\x7e/\x2econfig/fish/conf\x2ed/brew\x2efish
+SETUVAR _fisher_patrickf1_2F_fzf_2E_fish_files:\x7e/\x2econfig/fish/functions/_fzf_configure_bindings_help\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_extract_var_info\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_preview_changed_file\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_preview_file\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_report_diff_type\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_report_file_type\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_search_directory\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_search_git_log\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_search_git_status\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_search_history\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_search_processes\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_search_variables\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_wrapper\x2efish\x1e\x7e/\x2econfig/fish/functions/fzf_configure_bindings\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/fzf\x2efish\x1e\x7e/\x2econfig/fish/completions/fzf_configure_bindings\x2efish
+SETUVAR _fisher_plugins:jethrokuan/z\x1epatrickf1/fzf\x2efish\x1eoh\x2dmy\x2dfish/plugin\x2dbrew\x1ejorgebucaran/autopair\x2efish\x1emeaningful\x2dooo/sponge\x1enickeb96/puffer\x2dfish
+SETUVAR _fisher_upgraded_to_4_4:\x1d
+SETUVAR fish_key_bindings:fish_vi_key_bindings
+SETUVAR fish_user_paths:/opt/homebrew/sbin\x1e/Users/admin/\x2ecodeium/windsurf/bin\x1e/Applications/Ghostty\x2eapp/Contents/MacOS
+SETUVAR sponge_allow_previously_successful:true
+SETUVAR sponge_delay:2
+SETUVAR sponge_filters:sponge_filter_failed\x1esponge_filter_matched
+SETUVAR sponge_purge_only_on_exit:false
+SETUVAR sponge_regex_patterns:\x1d
+SETUVAR sponge_successful_exit_codes:0

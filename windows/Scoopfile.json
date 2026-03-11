@@ -1,0 +1,42 @@
+{
+  "buckets": [
+    "main",
+    "extras",
+    "nerd-fonts"
+  ],
+  "tools": [
+    "bat",
+    "delta",
+    "fd",
+    "fzf",
+    "gh",
+    "git",
+    "lazygit",
+    "lsd",
+    "mise",
+    "neovim",
+    "nu",
+    "ripgrep",
+    "starship",
+    "tree-sitter",
+    "wireshark",
+    "zoxide"
+  ],
+  "apps": [
+    "1password",
+    "anki",
+    "firefox",
+    "flow-launcher",
+    "ghostty",
+    "googlechrome",
+    "obsidian",
+    "postman",
+    "sublime-text",
+    "zed"
+  ],
+  "fonts": [
+    "JetBrainsMono-NF",
+    "JetBrainsMono-NF-Mono",
+    "Hack-NF"
+  ]
+}

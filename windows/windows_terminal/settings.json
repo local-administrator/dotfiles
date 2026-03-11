@@ -1,0 +1,50 @@
+{
+    "$help": "https://aka.ms/terminal-documentation",
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+    "defaultProfile": "{9a8e4ffe-a9f2-4d6a-b0e8-8a4e5c0d8b3f}",
+    "profiles": {
+        "defaults": {
+            "colorScheme": "Catppuccin Macchiato",
+            "font": {
+                "face": "JetBrainsMono Nerd Font",
+                "size": 14
+            },
+            "opacity": 85,
+            "useAcrylic": true,
+            "padding": "10"
+        },
+        "list": [
+            {
+                "guid": "{9a8e4ffe-a9f2-4d6a-b0e8-8a4e5c0d8b3f}",
+                "name": "Nushell",
+                "commandline": "nu.exe",
+                "hidden": false
+            }
+        ]
+    },
+    "schemes": [
+        {
+            "name": "Catppuccin Macchiato",
+            "background": "#24273A",
+            "foreground": "#CAD3F5",
+            "selectionBackground": "#5B6078",
+            "cursorColor": "#F4DBD6",
+            "black": "#494D64",
+            "red": "#ED8796",
+            "green": "#A6DA95",
+            "yellow": "#EED49F",
+            "blue": "#8AADF4",
+            "purple": "#F5BDE6",
+            "cyan": "#8BD5CA",
+            "white": "#B8C0E0",
+            "brightBlack": "#5B6078",
+            "brightRed": "#ED8796",
+            "brightGreen": "#A6DA95",
+            "brightYellow": "#EED49F",
+            "brightBlue": "#8AADF4",
+            "brightPurple": "#F5BDE6",
+            "brightCyan": "#8BD5CA",
+            "brightWhite": "#CAD3F5"
+        }
+    ]
+}
