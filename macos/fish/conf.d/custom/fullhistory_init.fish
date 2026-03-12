@@ -1,7 +1,7 @@
 # Logs are stored in monthly files in ~/.local/share/fish/fullhistory/
 
-if test -f $HOME/.dotfiles/fish/functions/custom/fullhistory_logger.fish
-    source $HOME/.dotfiles/fish/functions/custom/fullhistory_logger.fish
+if test -f $HOME/.dotfiles/macos/fish/functions/custom/fullhistory_logger.fish
+    source $HOME/.dotfiles/macos/fish/functions/custom/fullhistory_logger.fish
 end
 
 # Set up directory structure for monthly logs

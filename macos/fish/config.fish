@@ -17,11 +17,11 @@ if test -f /path/to/work/tool.fish
 end
 
 # add custom function path
-set -p fish_function_path $HOME/.dotfiles/fish/functions/custom
+set -p fish_function_path $HOME/.dotfiles/macos/fish/functions/custom
 
 # source custom configs (if directory exists)
-if test -d $HOME/.dotfiles/fish/conf.d/custom
-    for f in $HOME/.dotfiles/fish/conf.d/custom/*.fish
+if test -d $HOME/.dotfiles/macos/fish/conf.d/custom
+    for f in $HOME/.dotfiles/macos/fish/conf.d/custom/*.fish
         source $f
     end
 end
