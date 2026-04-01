@@ -1,10 +1,10 @@
 # macOS
 .DS_Store
 
-# Fish shell generated files
-fish/fish_variables
-fish/fish_history
-fish/fish_read_history
+# Fish shell generated files (machine-specific, may contain secrets)
+macos/fish/fish_variables
+macos/fish/fish_history
+macos/fish/fish_read_history
 
 # Fisher managed files (but keep custom)
 fish/functions/*
