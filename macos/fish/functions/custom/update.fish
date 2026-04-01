@@ -30,6 +30,22 @@ function update -d "Update all package managers and tools"
         fish_update_completions
     end
     
+    # pi (coding agent)
+    if type -q pi
+        set_color blue
+        echo '🤖 Updating pi...'
+        set_color normal
+        pi update
+    end
+    
+    # tldr (simplified man pages)
+    if type -q tldr
+        set_color blue
+        echo '📖 Updating tldr cache...'
+        set_color normal
+        tldr --update
+    end
+    
     # macOS system updates (optional, show what's available)
     if test (uname) = "Darwin"
         set_color blue
