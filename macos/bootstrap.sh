@@ -87,7 +87,7 @@ step "Creating symlinks..."
 bash "$META_DIR/dotfile_setup.sh"
 
 ###############################################################################
-# 5a. Mise trust + install
+# 6. Mise trust + install
 ###############################################################################
 step "Trusting and installing mise tools..."
 if command -v mise &> /dev/null; then
@@ -103,7 +103,7 @@ else
 fi
 
 ###############################################################################
-# 6. macOS defaults
+# 7. macOS defaults
 ###############################################################################
 step "macOS defaults..."
 echo -ne "${YELLOW}Apply macOS system defaults?${NC} [Y/n]: "
@@ -116,7 +116,7 @@ else
 fi
 
 ###############################################################################
-# 7. Fish as default shell
+# 8. Fish as default shell
 ###############################################################################
 step "Setting fish as default shell..."
 FISH_PATH="/opt/homebrew/bin/fish"
@@ -141,7 +141,7 @@ else
 fi
 
 ###############################################################################
-# 8. Fisher plugins
+# 9. Fisher plugins
 ###############################################################################
 step "Installing fish plugins via Fisher..."
 if command -v fish &> /dev/null; then

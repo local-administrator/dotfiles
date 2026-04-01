@@ -2,9 +2,9 @@
 
 echo "Configuring macOS settings"
 
-# Close any open System Preferences panes to prevent them from overriding
+# Close any open System Settings panes to prevent them from overriding
 # the settings being configured
-osascript -e 'tell application "System Preferences" to quit'
+osascript -e 'tell application "System Settings" to quit' 2>/dev/null
 
 ###############################################################################
 # Finder                                                                      #
