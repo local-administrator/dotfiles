@@ -24,6 +24,20 @@
   fsmonitor = true                                            # Use filesystem monitor for faster status
   untrackedCache = true                                       # Cache untracked files for performance
 
+# ===== Pager (delta) =====
+[pager]
+  diff = delta
+  log = delta
+  reflog = delta
+  show = delta
+[delta]
+  syntax-theme = gruvbox-dark
+  navigate = true                                             # Use n/N to jump between diff sections
+  side-by-side = true                                         # Side-by-side diff view
+  line-numbers = true                                         # Show line numbers
+[interactive]
+  diffFilter = delta --color-only                             # Use delta for interactive staging
+
 # ===== Display & UI =====
 [column]
   ui = auto                                                   # Auto-format columnar output in the terminal
