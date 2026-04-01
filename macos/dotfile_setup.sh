@@ -43,6 +43,15 @@ setup_git_local() {
 # This file is not tracked in version control
 [user]
 	email = $git_email
+
+# ===== Signing (macOS + 1Password) =====
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+	allowedSignersFile = ~/.config/git/allowed_signers
+[commit]
+	gpgsign = true
 EOF
 
   echo -e "${GREEN}✓${NC} Git local config created with email: $git_email"

@@ -204,6 +204,15 @@ if ($setupGit) {
 # This file is not tracked in version control
 [user]
 	email = $gitEmail
+
+# ===== Signing (Windows + 1Password) =====
+# Uncomment and configure if using 1Password SSH agent on Windows:
+# [gpg]
+# 	format = ssh
+# [gpg "ssh"]
+# 	program = C:/Users/$($env:USERNAME)/AppData/Local/1Password/app/8/op-ssh-sign.exe
+# [commit]
+# 	gpgsign = true
 "@ | Set-Content $gitLocal
     Write-Ok "Git local config saved with email: $gitEmail"
 }
