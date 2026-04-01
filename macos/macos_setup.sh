@@ -68,6 +68,32 @@ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 # (e.g. enable Tab in modal dialogs)
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
+# Disable auto-correct
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+
+###############################################################################
+# Trackpad                                                                    #
+###############################################################################
+
+# Enable tap to click (tap instead of physical click)
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+
+###############################################################################
+# Screenshots                                                                 #
+###############################################################################
+
+# Save screenshots to ~/Screenshots instead of Desktop
+mkdir -p "$HOME/Screenshots"
+defaults write com.apple.screencapture location -string "$HOME/Screenshots"
+
+# Save screenshots as PNG (lossless)
+defaults write com.apple.screencapture type -string png
+
+# Disable shadow on window screenshots
+defaults write com.apple.screencapture disable-shadow -bool true
+
 ###############################################################################
 # Dock                                                                        #
 ###############################################################################
