@@ -25,6 +25,11 @@ if type -q fzf
     fzf --fish | source
 end
 
+# zoxide (if installed)
+if type -q zoxide
+    zoxide init fish | source
+end
+
 # starship (if installed)
 if type -q starship
     starship init fish | source

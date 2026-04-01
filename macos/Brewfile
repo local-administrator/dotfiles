@@ -17,6 +17,7 @@ brew "tmux"
 brew "tree-sitter"
 brew "trash"
 brew "wireshark"
+brew "zoxide"
 brew "duti"
 
 # Applications
