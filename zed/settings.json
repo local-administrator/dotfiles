@@ -74,14 +74,8 @@
     "parameterHints": true,
     "chainingHints": true
   },
-  "language_models": {
-    "openai": {
-      "api_url": "https://WORK_PROXY_URL/v1"
-    },
-    "anthropic": {
-      "api_url": "https://WORK_PROXY_URL/vendors/anthropic"
-    }
-  },
+  // language_models: configure API URLs in Zed's local settings if using a proxy
+  // (e.g. Settings > Open Local Settings to set openai.api_url / anthropic.api_url)
   "features": {
     "edit_prediction_provider": "copilot"
   },

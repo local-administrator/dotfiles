@@ -70,7 +70,16 @@ setup_fish_local() {
   cat > "$fish_local" << 'EOF'
 # Device-specific fish configuration
 # This file is not tracked in version control
-# Add any machine-specific config here (e.g. work tools, local paths)
+# Add any machine-specific config here, for example:
+#
+#   # Work tools
+#   if test -f /path/to/work/tool.fish
+#       source /path/to/work/tool.fish
+#   end
+#
+#   # Additional include paths for .gitconfig.local:
+#   #   [include]
+#   #       path = /path/to/work/gitconfig
 EOF
 
   echo -e "${GREEN}✓${NC} Fish local config created at $fish_local"

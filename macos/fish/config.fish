@@ -10,11 +10,6 @@ set -gx PAGER less
 set -gx MANPAGER "sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
 set -x LESSHISTFILE /dev/null
 
-# work tools (only load if exists)
-if test -f /path/to/work/tool.fish
-    source /path/to/work/tool.fish
-end
-
 # add custom function path
 set -p fish_function_path $HOME/.dotfiles/macos/fish/functions/custom
 
@@ -36,6 +31,8 @@ if type -q starship
 end
 
 # source local/device-specific config (not tracked in git)
+# Use this for: work tool integrations, local PATH additions,
+# or any config with machine-specific paths.
 if test -f $HOME/.config/fish/config.local.fish
     source $HOME/.config/fish/config.local.fish
 end

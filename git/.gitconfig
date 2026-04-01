@@ -1,5 +1,7 @@
 [include]
 	# Device-specific config (not tracked in git)
+	# Use this for: email, signing keys, work tool integrations,
+	# or any config with machine-specific paths.
 	path = ~/.gitconfig.local
 
 # ===== User Identity =====
