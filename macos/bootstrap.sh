@@ -85,7 +85,7 @@ bash "$META_DIR/dotfile_setup.sh"
 ###############################################################################
 step "Trusting and installing mise tools..."
 if command -v mise &> /dev/null; then
-  mise trust "$HOME/.config/mise/config.toml"
+  mise trust "$DOTFILES_DIR/mise/config.toml"
   ok "mise config trusted"
   if mise install; then
     ok "mise tools installed"
@@ -139,11 +139,7 @@ fi
 ###############################################################################
 step "Installing fish plugins via Fisher..."
 if command -v fish &> /dev/null; then
-  fish -c "
-    curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
-    fisher install jorgebucaran/fisher
-    fisher update
-  " && ok "Fisher plugins installed" || warn "Fisher install had errors — run 'fisher update' manually in fish"
+  fish -c "fisher update" && ok "Fisher plugins installed" || warn "Fisher install had errors — run 'fisher update' manually in fish"
 else
   warn "fish not available, skipping Fisher bootstrap"
 fi
