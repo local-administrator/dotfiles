@@ -44,10 +44,10 @@ def update [] {
     print "Done."
 }
 
-# Source generated init scripts
-source ~/.cache/starship/init.nu
-source ~/.zoxide.nu
-source ~/.mise.nu
+# Source generated init scripts (created by env.nu; skip if not yet generated)
+source ($nu.home-path | path join ".cache" "starship" "init.nu")
+source ($nu.home-path | path join ".zoxide.nu")
+source ($nu.home-path | path join ".mise.nu")
 
 # Custom functions — edit this file to add your own
 source custom.nu

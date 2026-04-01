@@ -4,11 +4,17 @@ $env.VISUAL = "nvim"
 $env.PAGER = "less"
 
 # Starship
-mkdir ($env.USERPROFILE | path join ".cache" "starship")
-starship init nu | save -f ($env.USERPROFILE | path join ".cache" "starship" "init.nu")
+if (which starship | is-not-empty) {
+    mkdir ($env.USERPROFILE | path join ".cache" "starship")
+    starship init nu | save -f ($env.USERPROFILE | path join ".cache" "starship" "init.nu")
+}
 
 # Zoxide (replaces z)
-zoxide init nushell | save -f ($env.USERPROFILE | path join ".zoxide.nu")
+if (which zoxide | is-not-empty) {
+    zoxide init nushell | save -f ($env.USERPROFILE | path join ".zoxide.nu")
+}
 
 # Mise
-mise activate nu | save -f ($env.USERPROFILE | path join ".mise.nu")
+if (which mise | is-not-empty) {
+    mise activate nu | save -f ($env.USERPROFILE | path join ".mise.nu")
+}

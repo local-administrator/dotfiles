@@ -125,9 +125,12 @@ function New-Symlink {
     }
     if (Test-Path $Dst -PathType Any) {
         $existing = Get-Item $Dst -Force
-        if ($existing.LinkType -eq "SymbolicLink" -and $existing.Target -eq $Src) {
-            Write-Ok "Already linked: $Dst"
-            return
+        if ($existing.LinkType -eq "SymbolicLink") {
+            $resolvedTarget = ($existing.Target | Select-Object -First 1)
+            if ($resolvedTarget -and (Resolve-Path $resolvedTarget -ErrorAction SilentlyContinue).Path -eq (Resolve-Path $Src -ErrorAction SilentlyContinue).Path) {
+                Write-Ok "Already linked: $Dst"
+                return
+            }
         }
         Remove-Item $Dst -Recurse -Force
     }
