@@ -16,6 +16,7 @@ brew "tmux"
 brew "tree-sitter"
 brew "trash"
 brew "wireshark"
+brew "duti"
 
 # Applications
 cask "1password"

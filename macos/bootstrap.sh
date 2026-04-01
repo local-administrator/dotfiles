@@ -116,6 +116,17 @@ else
 fi
 
 ###############################################################################
+# 7a. Default file associations
+###############################################################################
+step "Setting default file associations..."
+if command -v duti &> /dev/null; then
+  bash "$META_DIR/duti_setup.sh"
+  ok "File associations configured"
+else
+  warn "duti not found, skipping file associations (install packages first)"
+fi
+
+###############################################################################
 # 8. Fish as default shell
 ###############################################################################
 step "Setting fish as default shell..."
