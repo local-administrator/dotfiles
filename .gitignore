@@ -7,12 +7,13 @@ macos/fish/fish_history
 macos/fish/fish_read_history
 
 # Fisher managed files (but keep custom)
-fish/functions/*
-fish/completions/*
-fish/conf.d/*
-!fish/functions/custom/
-!fish/functions/fisher.fish
-!fish/conf.d/custom/
+macos/fish/functions/*
+macos/fish/completions/*
+macos/fish/conf.d/*
+!macos/fish/functions/custom/
+!macos/fish/functions/fisher.fish
+!macos/fish/functions/rm.fish
+!macos/fish/conf.d/custom/
 
 # Backup files
 *.backup

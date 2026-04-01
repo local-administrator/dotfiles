@@ -94,7 +94,7 @@ check_dependencies() {
   if [ ${#missing_deps[@]} -gt 0 ]; then
     echo -e "${RED}Missing dependencies:${NC} ${missing_deps[*]}"
     echo -e "${YELLOW}Install them with:${NC} brew install ${missing_deps[*]}"
-    echo -e "${YELLOW}Or run interactive installer:${NC} $DOTFILES_DIR/.dotfiles_meta/brew_install.sh"
+    echo -e "${YELLOW}Or run interactive installer:${NC} $DOTFILES_DIR/macos/brew_install.sh"
     return 1
   fi
 
