@@ -10,5 +10,5 @@ function cbash --description "Safe curl|bash: analyze script with Claude before 
     set url $argv[-1]
     set flags $argv[1..-2]
 
-    curl -fsSL $url | ruby ~/.config/fish/curlcheck.rb $flags | bash
+    curl -fsSL $url | curlcheck $flags | bash
 end

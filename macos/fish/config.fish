@@ -10,6 +10,9 @@ set -gx PAGER less
 set -gx MANPAGER "sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
 set -x LESSHISTFILE /dev/null
 
+# add dotfiles bin to PATH
+fish_add_path $HOME/.dotfiles/bin
+
 # add custom function path
 set -p fish_function_path $HOME/.dotfiles/macos/fish/functions/custom
 

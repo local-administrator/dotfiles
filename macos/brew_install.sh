@@ -97,6 +97,16 @@ select_applications() {
     echo ""
   fi
 
+  # If fzf is still not available, fall back to installing all new apps
+  if ! command -v fzf &> /dev/null; then
+    echo -e "${YELLOW}fzf still not available. Installing all ${#new_apps[@]} new applications...${NC}"
+    echo "# All new applications" >> "$TEMP_BREWFILE"
+    for app in "${new_apps[@]}"; do
+      echo "cask \"$app\"" >> "$TEMP_BREWFILE"
+    done
+    return
+  fi
+
   echo -e "\n${BLUE}=== New Applications ===${NC}"
   echo -e "Use TAB to select/deselect, ENTER to confirm, ctrl-a to select all:"
   echo ""
