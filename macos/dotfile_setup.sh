@@ -90,12 +90,11 @@ check_dependencies() {
     echo -e "${GREEN}✓${NC} Homebrew found"
   fi
 
-  # Report missing dependencies
+  # Report missing dependencies (warn but don't block symlinks)
   if [ ${#missing_deps[@]} -gt 0 ]; then
-    echo -e "${RED}Missing dependencies:${NC} ${missing_deps[*]}"
+    echo -e "${YELLOW}Missing dependencies:${NC} ${missing_deps[*]}"
     echo -e "${YELLOW}Install them with:${NC} brew install ${missing_deps[*]}"
     echo -e "${YELLOW}Or run interactive installer:${NC} $DOTFILES_DIR/macos/brew_install.sh"
-    return 1
   fi
 
   return 0
@@ -136,10 +135,7 @@ create_symlink() {
 main() {
   echo -e "${BLUE}=== Dotfiles Setup ===${NC}"
 
-  if ! check_dependencies; then
-    echo -e "${RED}Please install missing dependencies before continuing.${NC}"
-    exit 1
-  fi
+  check_dependencies
 
   echo -e "\n${BLUE}Creating symlinks...${NC}"
 

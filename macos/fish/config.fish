@@ -1,5 +1,7 @@
-# initialize Homebrew environment
-/opt/homebrew/bin/brew shellenv | source
+# initialize Homebrew environment (Apple Silicon)
+if test -x /opt/homebrew/bin/brew
+    /opt/homebrew/bin/brew shellenv | source
+end
 
 # set defaults
 set -gx EDITOR nvim
