@@ -49,6 +49,25 @@ EOF
   return 0
 }
 
+setup_fish_local() {
+  local fish_local="$HOME/.config/fish/config.local.fish"
+
+  if [ -f "$fish_local" ]; then
+    echo -e "${YELLOW}Fish local config already exists:${NC} $fish_local"
+    return 0
+  fi
+
+  echo -e "${BLUE}Creating fish local config for device-specific settings...${NC}"
+  cat > "$fish_local" << 'EOF'
+# Device-specific fish configuration
+# This file is not tracked in version control
+# Add any machine-specific config here (e.g. work tools, local paths)
+EOF
+
+  echo -e "${GREEN}✓${NC} Fish local config created at $fish_local"
+  return 0
+}
+
 check_dependencies() {
   local missing_deps=()
 
@@ -139,9 +158,10 @@ main() {
   echo -e "\n${GREEN}=== Setup Complete ===${NC}"
   echo -e "Linked $success_count/$total_count configurations"
 
-  # Setup git local config
+  # Setup local configs
   echo ""
   setup_git_local
+  setup_fish_local
 
   # Post-setup
   if [ "$success_count" -eq "$total_count" ]; then

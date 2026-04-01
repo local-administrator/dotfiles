@@ -28,6 +28,7 @@ fish/conf.d/*
 
 # Local config files (device-specific)
 .gitconfig.local
+macos/fish/config.local.fish
 
 # Zed generated files
 zed/prompts/

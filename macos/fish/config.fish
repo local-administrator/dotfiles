@@ -35,3 +35,8 @@ end
 if type -q starship
     starship init fish | source
 end
+
+# source local/device-specific config (not tracked in git)
+if test -f $HOME/.config/fish/config.local.fish
+    source $HOME/.config/fish/config.local.fish
+end
