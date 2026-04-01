@@ -92,6 +92,21 @@ defaults write com.apple.dock persistent-apps -array
 defaults write com.apple.dock persistent-others -array
 
 ###############################################################################
+# Hot Corners                                                                 #
+###############################################################################
+# Values: 0=None, 2=Mission Control, 3=Application Windows, 4=Desktop,
+#         5=Screen Saver Start, 6=Screen Saver Disable, 10=Put Display to Sleep,
+#         11=Launchpad, 12=Notification Center, 13=Lock Screen, 14=Quick Note
+
+# Top-left: Mission Control (show all windows)
+defaults write com.apple.dock wvous-tl-corner -int 2
+defaults write com.apple.dock wvous-tl-modifier -int 0
+
+# Bottom-left: Lock Screen
+defaults write com.apple.dock wvous-bl-corner -int 13
+defaults write com.apple.dock wvous-bl-modifier -int 0
+
+###############################################################################
 # Appearance                                                                  #
 ###############################################################################
 
