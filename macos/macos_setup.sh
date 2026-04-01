@@ -30,6 +30,18 @@ defaults write com.apple.finder FXDefaultSearchScope -string SCcf
 # Show hidden files by default
 defaults write com.apple.finder AppleShowAllFiles -bool true
 
+# Show all file extensions
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+
+# Show status bar (item count and available disk space)
+defaults write com.apple.finder ShowStatusBar -bool true
+
+# Show full POSIX path in Finder title bar
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+
+# Reduce the spring-loaded folder delay (default 0.5)
+defaults write NSGlobalDomain com.apple.springing.delay -float 0.2
+
 # Disable animation for opening the Get Info window
 defaults write com.apple.finder DisableAllAnimations -bool true
 
@@ -78,6 +90,9 @@ defaults write com.apple.dock show-recents -bool false
 # Auto-hide and show the Dock
 defaults write com.apple.dock autohide -bool true
 
+# Remove the delay before the Dock auto-hides/shows
+defaults write com.apple.dock autohide-delay -float 0
+
 # Speed up the animation for hiding and showing the dock
 defaults write com.apple.dock autohide-time-modifier -float 0.25
 
@@ -105,6 +120,19 @@ defaults write com.apple.dock wvous-tl-modifier -int 0
 # Bottom-left: Lock Screen
 defaults write com.apple.dock wvous-bl-corner -int 13
 defaults write com.apple.dock wvous-bl-modifier -int 0
+
+###############################################################################
+# Speed & Animations                                                          #
+###############################################################################
+
+# Disable window open/close animations
+defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
+
+# Speed up window resize animation
+defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
+
+# Speed up Mission Control animation
+defaults write com.apple.dock expose-animation-duration -float 0.1
 
 ###############################################################################
 # Appearance                                                                  #
