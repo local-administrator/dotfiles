@@ -54,9 +54,38 @@ create_core_brewfile() {
 select_applications() {
   local apps=()
   read_into_array apps get_applications
-  
+
   if [ ${#apps[@]} -eq 0 ]; then
     echo -e "${YELLOW}No applications found in Brewfile${NC}"
+    return
+  fi
+
+  # Split into already-installed and not-yet-installed
+  local installed_casks
+  installed_casks=$(brew list --cask 2>/dev/null)
+
+  local installed_apps=()
+  local new_apps=()
+  for app in "${apps[@]}"; do
+    if echo "$installed_casks" | grep -qx "$app"; then
+      installed_apps+=("$app")
+    else
+      new_apps+=("$app")
+    fi
+  done
+
+  # Auto-include already-installed apps without prompting
+  if [ ${#installed_apps[@]} -gt 0 ]; then
+    echo "# Applications (already installed)" >> "$TEMP_BREWFILE"
+    for app in "${installed_apps[@]}"; do
+      echo "cask \"$app\"" >> "$TEMP_BREWFILE"
+    done
+    echo "" >> "$TEMP_BREWFILE"
+    echo -e "${GREEN}✓${NC} ${#installed_apps[@]} applications already installed"
+  fi
+
+  # If nothing new to install, skip the picker
+  if [ ${#new_apps[@]} -eq 0 ]; then
     return
   fi
 
@@ -68,15 +97,13 @@ select_applications() {
     echo ""
   fi
 
-  echo -e "\n${BLUE}=== Application Selection ===${NC}"
+  echo -e "\n${BLUE}=== New Applications ===${NC}"
   echo -e "Use TAB to select/deselect, ENTER to confirm, ctrl-a to select all:"
   echo ""
 
-  # Create temporary file with apps
   local app_list="/tmp/brew_apps_$$"
-  printf '%s\n' "${apps[@]}" > "$app_list"
-  
-  # Use fzf for multi-select with custom key bindings
+  printf '%s\n' "${new_apps[@]}" > "$app_list"
+
   local selected_apps
   selected_apps=$(cat "$app_list" | fzf \
     --multi \
@@ -86,7 +113,7 @@ select_applications() {
     --preview-window=hidden \
     --height=60% \
     --border)
-  
+
   rm -f "$app_list"
 
   if [ -n "$selected_apps" ]; then
@@ -95,11 +122,10 @@ select_applications() {
       echo "cask \"$app\"" >> "$TEMP_BREWFILE"
     done <<< "$selected_apps"
     echo "" >> "$TEMP_BREWFILE"
-    
     local count=$(echo "$selected_apps" | wc -l | tr -d ' ')
-    echo -e "\n${GREEN}Selected $count applications${NC}"
+    echo -e "\n${GREEN}Selected $count new applications${NC}"
   else
-    echo -e "\n${YELLOW}No applications selected${NC}"
+    echo -e "\n${YELLOW}No new applications selected${NC}"
   fi
 }
 
@@ -107,24 +133,52 @@ select_applications() {
 select_fonts() {
   local fonts=()
   read_into_array fonts get_fonts
-  
+
   if [ ${#fonts[@]} -eq 0 ]; then
     return
   fi
 
+  # Split into already-installed and new
+  local installed_casks
+  installed_casks=$(brew list --cask 2>/dev/null)
+
+  local installed_fonts=()
+  local new_fonts=()
+  for font in "${fonts[@]}"; do
+    if echo "$installed_casks" | grep -qx "$font"; then
+      installed_fonts+=("$font")
+    else
+      new_fonts+=("$font")
+    fi
+  done
+
+  # Auto-include already-installed fonts
+  if [ ${#installed_fonts[@]} -gt 0 ]; then
+    echo "# Fonts (already installed)" >> "$TEMP_BREWFILE"
+    for font in "${installed_fonts[@]}"; do
+      echo "cask \"$font\"" >> "$TEMP_BREWFILE"
+    done
+    echo "" >> "$TEMP_BREWFILE"
+    echo -e "${GREEN}✓${NC} ${#installed_fonts[@]} fonts already installed"
+  fi
+
+  if [ ${#new_fonts[@]} -eq 0 ]; then
+    return
+  fi
+
   echo -e "\n${BLUE}=== Font Selection ===${NC}"
-  echo -ne "${YELLOW}Install all fonts (${#fonts[@]} total)?${NC} [Y/n]: "
+  echo -ne "${YELLOW}Install ${#new_fonts[@]} new font(s)?${NC} [Y/n]: "
   read -n 1 choice
   echo ""
 
   if [[ ! "$choice" =~ ^[Nn]$ ]]; then
     echo "# Fonts" >> "$TEMP_BREWFILE"
-    for font in "${fonts[@]}"; do
+    for font in "${new_fonts[@]}"; do
       echo "cask \"$font\"" >> "$TEMP_BREWFILE"
     done
-    echo -e "${GREEN}✓${NC} Added all fonts"
+    echo -e "${GREEN}✓${NC} Added ${#new_fonts[@]} new fonts"
   else
-    echo -e "${RED}✗${NC} Skipped fonts"
+    echo -e "${RED}✗${NC} Skipped new fonts"
   fi
 }
 
