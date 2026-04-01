@@ -72,7 +72,13 @@ ok "Dotfiles at $DOTFILES_DIR"
 # 4. Install packages (interactive Brewfile)
 ###############################################################################
 step "Installing packages..."
-bash "$META_DIR/brew_install.sh"
+echo -ne "${YELLOW}Run package installer?${NC} [Y/n]: "
+read -n 1 choice; echo ""
+if [[ ! "$choice" =~ ^[Nn]$ ]]; then
+  bash "$META_DIR/brew_install.sh"
+else
+  warn "Skipped package installation"
+fi
 
 ###############################################################################
 # 5. Symlinks
