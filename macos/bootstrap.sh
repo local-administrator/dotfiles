@@ -154,4 +154,6 @@ fi
 # Done
 ###############################################################################
 echo -e "\n${GREEN}=== Bootstrap complete ===${NC}"
-echo -e "Start a new shell: ${YELLOW}exec fish${NC}"
+echo -e "${BLUE}Next steps:${NC}"
+echo -e "  1. Start a new shell:   ${YELLOW}exec fish${NC}"
+echo -e "  2. Update all tools:    ${YELLOW}update${NC}"

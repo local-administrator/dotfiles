@@ -163,13 +163,6 @@ main() {
   setup_git_local
   setup_fish_local
 
-  # Post-setup
-  if [ "$success_count" -eq "$total_count" ]; then
-    echo -e "\n${BLUE}Next steps:${NC}"
-    echo -e "1. Install applications: ${YELLOW}$DOTFILES_DIR/.dotfiles_meta/brew_install.sh${NC}"
-    echo -e "2. Start a new fish shell: ${YELLOW}exec fish${NC}"
-    echo -e "3. Update all tools: ${YELLOW}update${NC}"
-  fi
 }
 
 main "$@"
