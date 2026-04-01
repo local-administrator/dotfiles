@@ -8,9 +8,6 @@ set -gx PAGER less
 set -gx MANPAGER "sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
 set -x LESSHISTFILE /dev/null
 
-# set vi mode
-set -U fish_key_bindings fish_vi_key_bindings
-
 # work tools (only load if exists)
 if test -f /path/to/work/tool.fish
     source /path/to/work/tool.fish
