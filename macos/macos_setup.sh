@@ -66,8 +66,7 @@ defaults write com.apple.dock show-process-indicators -bool true
 # Make Dock icons of hidden applications translucent
 defaults write com.apple.dock showhidden -bool true
 
-# Keep Dock right on the right side to save vertical screen real estate
-# and to prevent it from acccidentally being moved between monitors
+# Keep Dock on the bottom
 defaults write com.apple.dock orientation -string bottom
 
 # Prevent Dock icons from bouncing
@@ -76,14 +75,57 @@ defaults write com.apple.dock no-bouncing -bool true
 # Don't show recent applications in Dock
 defaults write com.apple.dock show-recents -bool false
 
-# Minimize windows using the "scale" effect, which is much faster than "genie"
-defaults write com.apple.Dock mineffect scale
+# Auto-hide and show the Dock
+defaults write com.apple.dock autohide -bool true
 
 # Speed up the animation for hiding and showing the dock
 defaults write com.apple.dock autohide-time-modifier -float 0.25
 
-# Shrink the size of Dock app icons for more horizontal screen real estate
+# Minimize windows using the "genie" effect
+defaults write com.apple.dock mineffect -string genie
+
+# Shrink the size of Dock app icons
 defaults write com.apple.dock tilesize -int 52
+
+# Clear all apps from the Dock (keep only Finder and Trash)
+defaults write com.apple.dock persistent-apps -array
+defaults write com.apple.dock persistent-others -array
+
+###############################################################################
+# Appearance                                                                  #
+###############################################################################
+
+# Dark mode
+defaults write NSGlobalDomain AppleInterfaceStyle -string Dark
+
+# Accent color: pink (6=Pink, 5=Purple, 4=Blue, 3=Green, 2=Yellow, 1=Orange, 0=Red)
+defaults write NSGlobalDomain AppleAccentColor -int 6
+
+# Highlight color: pink
+defaults write NSGlobalDomain AppleHighlightColor -string "1.000000 0.749020 0.823529 Pink"
+
+###############################################################################
+# Spotlight & Raycast                                                         #
+###############################################################################
+
+# Disable Spotlight keyboard shortcut (Cmd+Space) so Raycast can use it
+/usr/libexec/PlistBuddy -c "Delete :AppleSymbolicHotKeys:64" ~/Library/Preferences/com.apple.symbolichotkeys.plist 2>/dev/null
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:64:enabled bool false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:64:value:parameters array" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:64:value:parameters:0 integer 32" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:64:value:parameters:1 integer 49" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:64:value:parameters:2 integer 1048576" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:64:value:type string standard" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+
+###############################################################################
+# Menu Bar (Control Center)                                                   #
+###############################################################################
+
+# Show Bluetooth in menu bar (18 = always show)
+defaults -currentHost write com.apple.controlcenter Bluetooth -int 18
+
+# Show Sound/Volume in menu bar (18 = always show)
+defaults -currentHost write com.apple.controlcenter Sound -int 18
 
 ###############################################################################
 # Miscellaneous                                                               #
@@ -105,9 +147,6 @@ defaults write com.apple.CrashReporter DialogType -string none
 # Prevent Photos from automatically opening when plugging in an iPhone
 defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 
-# Set highlight color to pink
-defaults write NSGlobalDomain AppleHighlightColor -string "1.000000 0.749020 0.823529 Pink"
-
 # Sort Activity Monitor results by highest CPU usage first
 defaults write com.apple.ActivityMonitor SortColumn -string CPUUsage
 defaults write com.apple.ActivityMonitor SortDirection -int 0
@@ -116,4 +155,10 @@ defaults write com.apple.ActivityMonitor SortDirection -int 0
 # Finish                                                                      #
 ###############################################################################
 
-echo "Done. You may need to restart currently running applications for new settings to kick in."
+# Restart affected services to apply changes
+killall Dock 2>/dev/null
+killall Finder 2>/dev/null
+killall ControlCenter 2>/dev/null
+killall SystemUIServer 2>/dev/null
+
+echo "Done. Some changes (e.g. appearance, Spotlight shortcut) may require a logout to fully apply."
