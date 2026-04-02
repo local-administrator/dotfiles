@@ -26,9 +26,9 @@ extensions+=(
   sql graphql
 )
 
-# Web
+# Web (styles only — html/svg open in browser by default, which is correct)
 extensions+=(
-  html htm css scss sass svg
+  css scss sass
 )
 
 # Config / Dotfiles
