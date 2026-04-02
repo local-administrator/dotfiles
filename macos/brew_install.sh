@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Interactive Brew Bundle Installer
-# Core tools (formulae) install automatically via brew bundle.
-# Applications (casks) are presented interactively — only net-new shown.
+# Shows only packages not already installed. Nothing installs without selection.
 
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
@@ -22,134 +21,126 @@ check_homebrew() {
   fi
 }
 
-# Interactive application selection — only shows what's not installed
-select_applications() {
-  local installed_casks
-  installed_casks=$(brew list --cask 2>/dev/null)
+# Cache installed packages once
+cache_installed() {
+  INSTALLED_FORMULAE=$(brew list --formula 2>/dev/null)
+  INSTALLED_CASKS=$(brew list --cask 2>/dev/null)
+}
 
-  # Find casks in Brewfile that aren't installed (exclude fonts)
-  local new_apps=()
+# Interactive picker using fzf, with Y/n fallback
+# Writes selected items to TEMP_BREWFILE as brew/cask entries
+# Usage: pick_and_add "brew" "Formulae" item1 item2 ...
+pick_and_add() {
+  local type="$1"
+  local category="$2"
+  shift 2
+  local items=("$@")
+
+  if [ ${#items[@]} -eq 0 ]; then
+    echo -e "${GREEN}✓${NC} All $category already installed"
+    return
+  fi
+
+  echo -e "\n${BLUE}=== ${#items[@]} new $category ===${NC}"
+
+  local selected=""
+
+  if command -v fzf &> /dev/null; then
+    selected=$(printf '%s\n' "${items[@]}" | fzf \
+      --multi \
+      --bind 'ctrl-a:select-all' \
+      --bind 'ctrl-d:deselect-all' \
+      --header 'TAB: select | ctrl-a: all | ctrl-d: none | ESC: skip | ENTER: confirm' \
+      --preview-window=hidden \
+      --height=60% \
+      --border) || true
+  else
+    # Fallback: list items and ask Y/n
+    for item in "${items[@]}"; do
+      echo "  $item"
+    done
+    echo ""
+    echo -ne "${YELLOW}Install all ${#items[@]} $category?${NC} [Y/n]: "
+    read -n 1 choice
+    echo ""
+    if [[ ! "$choice" =~ ^[Nn]$ ]]; then
+      selected=$(printf '%s\n' "${items[@]}")
+    fi
+  fi
+
+  if [ -n "$selected" ]; then
+    while IFS= read -r item; do
+      echo "${type} \"$item\"" >> "$TEMP_BREWFILE"
+    done <<< "$selected"
+    local count=$(echo "$selected" | wc -l | tr -d ' ')
+    echo -e "${GREEN}Selected $count $category${NC}"
+  else
+    echo -e "${YELLOW}Skipped $category${NC}"
+  fi
+}
+
+select_formulae() {
+  local new_items=()
+  while IFS= read -r formula; do
+    [[ -z "$formula" ]] && continue
+    if ! echo "$INSTALLED_FORMULAE" | grep -qx "$formula"; then
+      new_items+=("$formula")
+    fi
+  done < <(grep '^brew ' "$BREWFILE" | sed 's/brew "\([^"]*\)".*/\1/' | sort)
+
+  pick_and_add "brew" "formulae" "${new_items[@]}"
+}
+
+select_applications() {
+  local new_items=()
   while IFS= read -r app; do
     [[ -z "$app" ]] && continue
-    if ! echo "$installed_casks" | grep -qx "$app"; then
-      new_apps+=("$app")
+    if ! echo "$INSTALLED_CASKS" | grep -qx "$app"; then
+      new_items+=("$app")
     fi
   done < <(grep '^cask ' "$BREWFILE" | grep -v '^cask "font-' | sed 's/cask "\([^"]*\)".*/\1/' | sort)
 
-  if [ ${#new_apps[@]} -eq 0 ]; then
-    echo -e "${GREEN}✓${NC} All applications already installed"
-    return
-  fi
-
-  # Ensure fzf is available — install formulae first if needed
-  if ! command -v fzf &> /dev/null; then
-    echo -e "${YELLOW}fzf not available. Installing formulae first...${NC}"
-    grep '^brew ' "$BREWFILE" > "$TEMP_BREWFILE"
-    brew bundle install --file="$TEMP_BREWFILE" --no-upgrade
-    echo ""
-  fi
-
-  # Fallback if fzf still not available
-  if ! command -v fzf &> /dev/null; then
-    echo -e "${YELLOW}fzf not available. Adding all ${#new_apps[@]} new applications...${NC}"
-    for app in "${new_apps[@]}"; do
-      echo "cask \"$app\"" >> "$TEMP_BREWFILE"
-    done
-    return
-  fi
-
-  echo -e "\n${BLUE}=== ${#new_apps[@]} New Application(s) ===${NC}"
-
-  local selected_apps
-  selected_apps=$(printf '%s\n' "${new_apps[@]}" | fzf \
-    --multi \
-    --bind 'ctrl-a:select-all' \
-    --bind 'ctrl-d:deselect-all' \
-    --header 'TAB: select | ctrl-a: all | ctrl-d: none | ESC: skip | ENTER: confirm' \
-    --preview-window=hidden \
-    --height=60% \
-    --border) || true
-
-  if [ -n "$selected_apps" ]; then
-    while IFS= read -r app; do
-      echo "cask \"$app\"" >> "$TEMP_BREWFILE"
-    done <<< "$selected_apps"
-    local count=$(echo "$selected_apps" | wc -l | tr -d ' ')
-    echo -e "${GREEN}Selected $count application(s)${NC}"
-  else
-    echo -e "${YELLOW}Skipped application selection${NC}"
-  fi
+  pick_and_add "cask" "applications" "${new_items[@]}"
 }
 
-# Font selection — only shows what's not installed
 select_fonts() {
-  local installed_casks
-  installed_casks=$(brew list --cask 2>/dev/null)
-
-  local new_fonts=()
+  local new_items=()
   while IFS= read -r font; do
     [[ -z "$font" ]] && continue
-    if ! echo "$installed_casks" | grep -qx "$font"; then
-      new_fonts+=("$font")
+    if ! echo "$INSTALLED_CASKS" | grep -qx "$font"; then
+      new_items+=("$font")
     fi
   done < <(grep '^cask "font-' "$BREWFILE" | sed 's/cask "\([^"]*\)".*/\1/' | sort)
 
-  if [ ${#new_fonts[@]} -eq 0 ]; then
-    return
-  fi
-
-  echo -e "\n${BLUE}=== Font Selection ===${NC}"
-  echo -ne "${YELLOW}Install ${#new_fonts[@]} new font(s)?${NC} [Y/n]: "
-  read -n 1 choice
-  echo ""
-
-  if [[ ! "$choice" =~ ^[Nn]$ ]]; then
-    for font in "${new_fonts[@]}"; do
-      echo "cask \"$font\"" >> "$TEMP_BREWFILE"
-    done
-    echo -e "${GREEN}✓${NC} Added ${#new_fonts[@]} font(s)"
-  else
-    echo -e "${YELLOW}Skipped fonts${NC}"
-  fi
+  pick_and_add "cask" "fonts" "${new_items[@]}"
 }
 
-# Install everything
 install_selected() {
-  # Always start with formulae from Brewfile (brew bundle skips installed ones)
-  local has_new_casks=false
-  if [ -f "$TEMP_BREWFILE" ] && [ -s "$TEMP_BREWFILE" ]; then
-    has_new_casks=true
+  if [ ! -f "$TEMP_BREWFILE" ] || [ ! -s "$TEMP_BREWFILE" ]; then
+    echo -e "\n${YELLOW}Nothing selected to install${NC}"
+    return 0
   fi
 
-  if [ "$has_new_casks" = true ]; then
-    echo -e "\n${BLUE}=== Installation Summary ===${NC}"
-    echo -e "${BLUE}Formulae:${NC} all from Brewfile (already installed will be skipped)"
-    echo -e "${BLUE}Casks:${NC}"
-    grep '^cask ' "$TEMP_BREWFILE" | sed 's/cask "\([^"]*\)".*/  \1/'
-    echo ""
+  echo -e "\n${BLUE}=== Installation Summary ===${NC}"
+  local formulae casks
+  formulae=$(grep '^brew ' "$TEMP_BREWFILE" | sed 's/brew "\([^"]*\)".*/  \1/')
+  casks=$(grep '^cask ' "$TEMP_BREWFILE" | sed 's/cask "\([^"]*\)".*/  \1/')
 
-    echo -ne "${YELLOW}Proceed?${NC} [Y/n]: "
-    read -n 1 choice
-    echo ""
-    if [[ "$choice" =~ ^[Nn]$ ]]; then
-      echo -e "${YELLOW}Installation cancelled${NC}"
-      return 0
-    fi
+  [ -n "$formulae" ] && echo -e "${BLUE}Formulae:${NC}" && echo "$formulae"
+  [ -n "$casks" ] && echo -e "${BLUE}Casks:${NC}" && echo "$casks"
+  echo ""
 
-    # Merge formulae + selected casks into one Brewfile
-    local merged="/tmp/brew_merged_$$"
-    grep '^brew ' "$BREWFILE" > "$merged"
-    cat "$TEMP_BREWFILE" >> "$merged"
-
-    echo -e "\n${BLUE}Installing...${NC}"
-    brew bundle install --file="$merged" --no-upgrade
-    local exit_code=$?
-    rm -f "$merged"
-  else
-    echo -e "\n${BLUE}Installing formulae...${NC}"
-    brew bundle install --file="$BREWFILE" --no-upgrade
-    local exit_code=$?
+  echo -ne "${YELLOW}Proceed?${NC} [Y/n]: "
+  read -n 1 choice
+  echo ""
+  if [[ "$choice" =~ ^[Nn]$ ]]; then
+    echo -e "${YELLOW}Installation cancelled${NC}"
+    return 0
   fi
+
+  echo -e "\n${BLUE}Installing...${NC}"
+  brew bundle install --file="$TEMP_BREWFILE" --no-upgrade
+  local exit_code=$?
 
   if [ $exit_code -eq 0 ]; then
     echo -e "\n${GREEN}✓ Installation complete!${NC}"
@@ -168,6 +159,7 @@ main() {
   echo -e "${BLUE}=== Brew Bundle Installer ===${NC}"
 
   check_homebrew
+  cache_installed
 
   if [ ! -f "$BREWFILE" ]; then
     echo -e "${RED}Error:${NC} Brewfile not found at $BREWFILE"
@@ -177,6 +169,7 @@ main() {
   trap cleanup EXIT
   rm -f "$TEMP_BREWFILE"
 
+  select_formulae
   select_applications
   select_fonts
   install_selected
