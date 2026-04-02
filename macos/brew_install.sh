@@ -214,7 +214,7 @@ install_selected() {
   fi
 
   echo -e "\n${BLUE}Installing selected packages...${NC}"
-  brew bundle install --file="$TEMP_BREWFILE"
+  brew bundle install --file="$TEMP_BREWFILE" --no-upgrade
   
   local exit_code=$?
   if [ $exit_code -eq 0 ]; then
