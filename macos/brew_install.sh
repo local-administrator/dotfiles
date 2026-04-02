@@ -115,53 +115,41 @@ select_fonts() {
 
 # Install everything
 install_selected() {
+  # Always start with formulae from Brewfile (brew bundle skips installed ones)
   local has_new_casks=false
   if [ -f "$TEMP_BREWFILE" ] && [ -s "$TEMP_BREWFILE" ]; then
     has_new_casks=true
   fi
 
-  # Check if formulae are already up to date
-  local formulae_current=false
-  if brew bundle check --file="$BREWFILE" --no-upgrade &>/dev/null; then
-    formulae_current=true
-  fi
-
-  # Nothing to do
-  if [ "$formulae_current" = true ] && [ "$has_new_casks" = false ]; then
-    echo -e "\n${GREEN}✓ Everything already installed!${NC}"
-    return 0
-  fi
-
-  # Build install list
-  echo -e "\n${BLUE}=== Installation Summary ===${NC}"
-  if [ "$formulae_current" = false ]; then
-    echo -e "${BLUE}Formulae:${NC} new packages from Brewfile"
-  fi
   if [ "$has_new_casks" = true ]; then
+    echo -e "\n${BLUE}=== Installation Summary ===${NC}"
+    echo -e "${BLUE}Formulae:${NC} all from Brewfile (already installed will be skipped)"
     echo -e "${BLUE}Casks:${NC}"
     grep '^cask ' "$TEMP_BREWFILE" | sed 's/cask "\([^"]*\)".*/  \1/'
-  fi
-  echo ""
+    echo ""
 
-  echo -ne "${YELLOW}Proceed?${NC} [Y/n]: "
-  read -n 1 choice
-  echo ""
-  if [[ "$choice" =~ ^[Nn]$ ]]; then
-    echo -e "${YELLOW}Installation cancelled${NC}"
-    return 0
-  fi
+    echo -ne "${YELLOW}Proceed?${NC} [Y/n]: "
+    read -n 1 choice
+    echo ""
+    if [[ "$choice" =~ ^[Nn]$ ]]; then
+      echo -e "${YELLOW}Installation cancelled${NC}"
+      return 0
+    fi
 
-  # Merge formulae + selected casks into one Brewfile
-  local merged="/tmp/brew_merged_$$"
-  grep '^brew ' "$BREWFILE" > "$merged"
-  if [ "$has_new_casks" = true ]; then
+    # Merge formulae + selected casks into one Brewfile
+    local merged="/tmp/brew_merged_$$"
+    grep '^brew ' "$BREWFILE" > "$merged"
     cat "$TEMP_BREWFILE" >> "$merged"
-  fi
 
-  echo -e "\n${BLUE}Installing...${NC}"
-  brew bundle install --file="$merged" --no-upgrade
-  local exit_code=$?
-  rm -f "$merged"
+    echo -e "\n${BLUE}Installing...${NC}"
+    brew bundle install --file="$merged" --no-upgrade
+    local exit_code=$?
+    rm -f "$merged"
+  else
+    echo -e "\n${BLUE}Installing formulae...${NC}"
+    brew bundle install --file="$BREWFILE" --no-upgrade
+    local exit_code=$?
+  fi
 
   if [ $exit_code -eq 0 ]; then
     echo -e "\n${GREEN}✓ Installation complete!${NC}"
