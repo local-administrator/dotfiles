@@ -1,11 +1,4 @@
-[tools]
-go = "latest"
-node = "latest"
-"npm:prettier" = "latest"
-python = "latest"
-ruby = "latest"
-uv = "latest"
+# Global mise config — intentionally empty
+# Use project-specific .mise.toml for pinned versions and tasks
 
-[settings]
-idiomatic_version_file_enable_tools = ["ruby"]
-ruby.compile = false
+[tools]
