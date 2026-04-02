@@ -13,14 +13,6 @@ function update -d "Update all package managers and tools"
         brew cleanup
     end
     
-    # mise (version manager)
-    if type -q mise
-        set_color blue
-        echo '🔧 Updating mise tools...'
-        set_color normal
-        mise upgrade
-    end
-    
     # Fisher (fish plugin manager)
     if type -q fisher
         set_color blue

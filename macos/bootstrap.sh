@@ -89,15 +89,10 @@ bash "$META_DIR/dotfile_setup.sh"
 ###############################################################################
 # 6. Mise trust + install
 ###############################################################################
-step "Trusting and installing mise tools..."
+step "Setting up mise..."
 if command -v mise &> /dev/null; then
   mise trust "$DOTFILES_DIR/mise/config.toml"
-  ok "mise config trusted"
-  if mise install; then
-    ok "mise tools installed"
-  else
-    warn "mise install had errors — run 'mise install' manually to retry"
-  fi
+  ok "mise ready (add project-specific .mise.toml files as needed)"
 else
   warn "mise not found, skipping"
 fi
