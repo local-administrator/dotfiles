@@ -24,6 +24,65 @@ fullhistory -e       # Export last 7 days to simple markdown
 fullhistory -ed      # Export last 7 days to detailed markdown (grouped by day)
 ```
 
+#### gitgrabber — GitHub Organization Mirror
+Mirrors a GitHub organization locally — clones new repos, pulls updates on existing ones.
+
+**Features:**
+- Clones new repos, fast-forward pulls on existing ones
+- "What's new" commit summaries on updated repos
+- Skips repos with dirty working trees (never touches uncommitted changes)
+- Skips forks, archived, and empty repos by default
+- Detects orphaned local repos no longer in the org
+- Parallel execution (configurable worker count)
+- Auto-fixes stale remote URLs
+- HTTPS and SSH clone protocols
+- Colorized output with emoji status indicators
+
+**Prerequisites:** `gh` (GitHub CLI, authenticated via `gh auth login`), `python3`, `fzf` (for interactive mode)
+
+**Usage:**
+```fish
+gitgrabber my-org                    # Preview changes, prompt to confirm
+gitgrabber my-org -i                 # Pick repos with fzf multi-select
+gitgrabber my-org -y                 # No prompts (scripting/cron)
+gitgrabber my-org --dry-run          # Preview without changes
+gitgrabber my-org --include-forks    # Include forked repos
+gitgrabber my-org --include-archived # Include archived repos
+gitgrabber my-org --protocol ssh     # Clone via SSH instead of HTTPS
+gitgrabber my-org --jobs 8           # 8 parallel workers (default: 4)
+gitgrabber my-org --quiet            # Only show changes and summary
+```
+
+**Output:**
+```
+  gitgrabber · my-org → ~/src/github.com/my-org/
+  57 repos in org, 52 after filters
+
+  📥 new-project — cloned
+  🔄 active-repo — 3 new commit(s)
+     · a1b2c3d fix token refresh logic
+     · d4e5f6g add rate limit handling
+  ✅ stable-lib — up to date
+  ⚠️  wip-thing — skipped (dirty working tree)
+  👻 old-thing — orphaned (not in org)
+
+  Summary
+  3 cloned · 1 updated · 48 current · 1 skipped · 1 orphaned
+  Completed in 18s
+```
+
+| Flag | Short | Description |
+|---|---|---|
+| `--interactive` | `-i` | Pick repos with fzf multi-select |
+| `--yes` | `-y` | Skip confirmation, run everything |
+| `--dry-run` | `-n` | Preview actions without making changes |
+| `--include-forks` | `-f` | Include forked repos (skipped by default) |
+| `--include-archived` | `-a` | Include archived repos (skipped by default) |
+| `--jobs N` | `-j N` | Max parallel jobs (default: 4) |
+| `--protocol PROTO` | `-p PROTO` | Clone protocol: `https` (default) or `ssh` |
+| `--quiet` | `-q` | Only show changes and summary |
+| `--help` | `-h` | Show help |
+
 #### Update Command
 Updates all package managers and tools:
 ```fish
@@ -76,6 +135,7 @@ fish/
 │       └── fullhistory_init.fish  # History logging setup
 ├── functions/              # Fish functions
 │   └── custom/
+│       ├── gitgrabber.fish        # GitHub org mirror/sync
 │       ├── fish_greeting.fish     # Custom greeting
 │       ├── fullhistory.fish       # Main history function
 │       ├── fullhistory_logger.fish # History logging hook
